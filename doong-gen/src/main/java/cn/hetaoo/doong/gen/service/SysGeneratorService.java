@@ -1,4 +1,4 @@
-package dao;
+package cn.hetaoo.doong.gen.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,11 +6,9 @@ import java.util.Map;
 /**
  * 代码生成器
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月19日 下午3:32:04
+ * @author hetaoo
  */
-public interface SysGeneratorDao {
+public interface SysGeneratorService {
 	
 	List<Map<String, Object>> queryList(Map<String, Object> map);
 	
@@ -19,4 +17,9 @@ public interface SysGeneratorDao {
 	Map<String, String> queryTable(String tableName);
 	
 	List<Map<String, String>> queryColumns(String tableName);
+	
+	/**
+	 * 生成代码
+	 */
+	byte[] generatorCode(String[] tableNames);
 }

@@ -14,6 +14,18 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.hetaoo</groupId>
+            <artifactId>doong-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hetaoo</groupId>
+            <artifactId>doong-gen</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- springboot web支持：mvc,aop... -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

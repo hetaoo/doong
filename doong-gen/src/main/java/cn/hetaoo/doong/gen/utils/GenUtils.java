@@ -1,7 +1,9 @@
-package utils;
+package cn.hetaoo.doong.gen.utils;
 
-import io.renren.entity.ColumnEntity;
-import io.renren.entity.TableEntity;
+import cn.hetaoo.doong.common.ex.DoongException;
+import com.xiaoleilu.hutool.date.DateUtil;
+import cn.hetaoo.doong.gen.entity.ColumnEntity;
+import cn.hetaoo.doong.gen.entity.TableEntity;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -108,7 +110,7 @@ public class GenUtils {
 		map.put("package", config.getString("package"));
 		map.put("author", config.getString("author"));
 		map.put("email", config.getString("email"));
-		map.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
+		map.put("datetime", DateUtil.formatDateTime(new Date()));
         VelocityContext context = new VelocityContext(map);
         
         //获取模板列表
@@ -126,7 +128,7 @@ public class GenUtils {
 				IOUtils.closeQuietly(sw);
 				zip.closeEntry();
 			} catch (IOException e) {
-				throw new RRException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
+				throw new DoongException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
 			}
 		}
 	}
@@ -156,7 +158,7 @@ public class GenUtils {
 		try {
 			return new PropertiesConfiguration("generator.properties");
 		} catch (ConfigurationException e) {
-			throw new RRException("获取配置文件失败，", e);
+			throw new DoongException("获取配置文件失败，", e);
 		}
 	}
 	
@@ -170,27 +172,27 @@ public class GenUtils {
 		}
 		
 		if(template.contains("Entity.java.vm")){
-			return packagePath + "entity" + File.separator + className + "Entity.java";
+			return packagePath + "cn/hetaoo/doong/gen/entity" + File.separator + className + "Entity.java";
 		}
 		
 		if(template.contains("Dao.java.vm")){
-			return packagePath + "dao" + File.separator + className + "Dao.java";
+			return packagePath + "cn/hetaoo/doong/gen/dao" + File.separator + className + "Dao.java";
 		}
 		
 		if(template.contains("Dao.xml.vm")){
-			return packagePath + "dao" + File.separator + className + "Dao.xml";
+			return packagePath + "cn/hetaoo/doong/gen/dao" + File.separator + className + "Dao.xml";
 		}
 		
 		if(template.contains("Service.java.vm")){
-			return packagePath + "service" + File.separator + className + "Service.java";
+			return packagePath + "cn/hetaoo/doong/gen/service" + File.separator + className + "Service.java";
 		}
 		
 		if(template.contains("ServiceImpl.java.vm")){
-			return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
+			return packagePath + "cn/hetaoo/doong/gen/service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
 		}
 		
 		if(template.contains("Controller.java.vm")){
-			return packagePath + "controller" + File.separator + className + "Controller.java";
+			return packagePath + "cn/hetaoo/doong/gen/controller" + File.separator + className + "Controller.java";
 		}
 		
 		if(template.contains("list.html.vm")){

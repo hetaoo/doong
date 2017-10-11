@@ -1,13 +1,11 @@
-package entity;
+package cn.hetaoo.doong.gen.entity;
 
 import java.util.List;
 
 /**
  * 表数据
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月20日 上午12:02:55
+ * @author hetaoo
  */
 public class TableEntity {
 	//表的名称

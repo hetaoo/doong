@@ -1,4 +1,6 @@
-package service;
+package cn.hetaoo.doong.gen.dao;
+
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -6,11 +8,10 @@ import java.util.Map;
 /**
  * 代码生成器
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月19日 下午3:33:38
+ * @author hetaoo
  */
-public interface SysGeneratorService {
+@Mapper
+public interface SysGeneratorDao {
 	
 	List<Map<String, Object>> queryList(Map<String, Object> map);
 	
@@ -19,9 +20,4 @@ public interface SysGeneratorService {
 	Map<String, String> queryTable(String tableName);
 	
 	List<Map<String, String>> queryColumns(String tableName);
-	
-	/**
-	 * 生成代码
-	 */
-	byte[] generatorCode(String[] tableNames);
 }

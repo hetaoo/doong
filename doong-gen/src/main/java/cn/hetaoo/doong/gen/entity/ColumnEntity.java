@@ -1,11 +1,9 @@
-package entity;
+package cn.hetaoo.doong.gen.entity;
 
 /**
  * 列的属性
- * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月20日 上午12:01:45
+ *
+ * @author hetaoo
  */
 public class ColumnEntity {
 	//列名

@@ -1,17 +1,20 @@
-package service.impl;
+package cn.hetaoo.doong.gen.service.impl;
 
-import io.renren.dao.SysGeneratorDao;
-import io.renren.service.SysGeneratorService;
-import io.renren.utils.GenUtils;
+import cn.hetaoo.doong.gen.dao.SysGeneratorDao;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import cn.hetaoo.doong.gen.service.SysGeneratorService;
+import cn.hetaoo.doong.gen.utils.GenUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * @author hetaoo
+ */
 @Service("sysGeneratorService")
 public class SysGeneratorServiceImpl implements SysGeneratorService {
 	@Autowired

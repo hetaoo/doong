@@ -1,0 +1,4 @@
+spring:
+  ## 配置多個配置文件
+    profiles:
+      active: dev,common,gen

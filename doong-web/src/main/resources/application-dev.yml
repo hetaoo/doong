@@ -6,9 +6,7 @@ server:
 
 spring:
   ## 配置多個配置文件
-  datasource:
-      profiles:
-        active: application-common,application-dev
+
 
   ## resources 配置资源文件；
   resources:
@@ -86,7 +84,7 @@ spring:
   ########################################################
 mybatis:
   mapper-locations: classpath:sqlMap/*.xml
-  #type-aliases-package: com.ixxjd.info.common.security.domain
+  type-aliases-package: com.ixxjd.info.common.security.domain
 
 
   ########################################################
