@@ -5,9 +5,6 @@ server:
   port: 8011
 
 spring:
-  ## 配置多個配置文件
-
-
   ## resources 配置资源文件；
   resources:
     chain:

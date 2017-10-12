@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 代码生成器
@@ -28,7 +29,7 @@ import com.alibaba.fastjson.JSON;
  * @email sunlightcs@gmail.com
  * @date 2016年12月19日 下午9:12:58
  */
-@Controller
+@RestController
 @RequestMapping("/sys/generator")
 public class SysGeneratorController {
 	@Autowired
