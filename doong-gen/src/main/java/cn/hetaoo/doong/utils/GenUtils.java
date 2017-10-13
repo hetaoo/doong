@@ -1,9 +1,6 @@
 package cn.hetaoo.doong.utils;
 
-import cn.hetaoo.doong.ex.DoongException;
 import com.xiaoleilu.hutool.date.DateUtil;
-import cn.hetaoo.doong.entity.ColumnEntity;
-import cn.hetaoo.doong.entity.TableEntity;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -13,6 +10,9 @@ import org.apache.commons.lang.WordUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import cn.hetaoo.doong.entity.TableEntity;
+import cn.hetaoo.doong.entity.ColumnEntity;
+import cn.hetaoo.doong.ex.DoongException;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +24,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * 代码生成器   工具类
  * 
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2016年12月19日 下午11:40:24
+ * @author hetaoo
  */
 public class GenUtils {
 

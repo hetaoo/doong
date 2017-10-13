@@ -10,31 +10,76 @@
 #end
     </resultMap>
 
-	<select id="queryObject" resultType="${package}.entity.${className}Entity">
-		select * from ${tableName} where ${pk.columnName} = #{value}
+    <sql id="Base_Column_List">
+
+		#foreach($column in $columns)
+			$column.columnName#if($velocityCount != $columns.size()), #end
+		#end
+    </sql>
+
+	<select id="selectObjectById" resultType="${package}.entity.${className}Entity">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			${tableName}
+		WHERE ${pk.columnName} = #{value}
 	</select>
 
-	<select id="queryList" resultType="${package}.entity.${className}Entity">
-		select * from ${tableName}
-        <choose>
-            <when test="sidx != null and sidx.trim() != ''">
-                order by ${sidx} ${order}
-            </when>
-			<otherwise>
-                order by ${pk.columnName} desc
-			</otherwise>
-        </choose>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
-		</if>
+	<select id="selectList" resultMap="${classname}Map">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM ${tableName}
+        <where>
+            1 = 1
+			#foreach($column in $columns)
+                <if test="${column.attrname} != null and ${column.attrname}.trim() != '')">
+                    and ${column.columnName} = #{${column.attrname}}
+                </if>
+			#end
+        </where>
 	</select>
 	
- 	<select id="queryTotal" resultType="int">
-		select count(*) from ${tableName} 
+ 	<select id="queryTotal" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM ${tableName}
+        <where>
+            1 = 1
+			#foreach($column in $columns)
+                <if test="${column.attrname} != null and ${column.attrname}.trim() != '')">
+                    and ${column.columnName} = #{${column.attrname}}
+                </if>
+			#end
+        </where>
 	</select>
-	 
-	<insert id="save" parameterType="${package}.entity.${className}Entity"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
-		insert into ${tableName}
+
+	<delete id="deleteById">
+		DELETE FROM ${tableName} WHERE id = #{id}
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM ${tableName}
+        <where>
+			#foreach($column in $columns)
+                <trim  suffixOverrides="AND">
+					<if test="${column.attrname} != null and ${column.attrname}.trim() != '')">
+						${column.columnName} = #{${column.attrname}} AND
+					</if>
+                </trim>
+			#end
+        </where>
+	</delete>
+
+    <delete id="deleteBatchByIds">
+        DELETE FROM ${tableName} WHERE ${pk.columnName} IN
+        <foreach item="${pk.attrname}" collection="array" open="(" separator="," close=")">
+            #{${pk.attrname}}
+        </foreach>
+    </delete>
+
+
+    <insert id="insert" parameterType="${package}.entity.${className}Entity" #if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
+		INSERT INTO ${tableName}
 		(
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName || $pk.extra != 'auto_increment')
@@ -53,7 +98,8 @@
 #end
 		)
 	</insert>
-	 
+
+	//TODO
 	<update id="update" parameterType="${package}.entity.${className}Entity">
 		update ${tableName} 
 		<set>
@@ -66,15 +112,5 @@
 		where ${pk.columnName} = #{${pk.attrname}}
 	</update>
 	
-	<delete id="delete">
-		delete from ${tableName} where ${pk.columnName} = #{value}
-	</delete>
-	
-	<delete id="deleteBatch">
-		delete from ${tableName} where ${pk.columnName} in 
-		<foreach item="${pk.attrname}" collection="array" open="(" separator="," close=")">
-			#{${pk.attrname}}
-		</foreach>
-	</delete>
 
 </mapper>
