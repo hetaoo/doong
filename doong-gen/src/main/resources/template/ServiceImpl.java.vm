@@ -23,32 +23,32 @@ public class ${className}ServiceImpl implements ${className}Service {
 	}
 	
 	@Override
-	public List<${className}Entity> queryList(Map<String, Object> map){
-		return ${classname}Dao.queryList(map);
+	public List<${className}Entity> queryList(${className}QueryEntity queryEntity){
+		return ${classname}Dao.queryList(queryEntity);
 	}
 	
 	@Override
-	public int queryTotal(Map<String, Object> map){
-		return ${classname}Dao.queryTotal(map);
+	public Integer queryTotal(${className}QueryEntity queryEntity){
+		return ${classname}Dao.queryTotal(queryEntity);
 	}
 	
 	@Override
-	public void save(${className}Entity ${classname}){
+	public Integer save(${className}Entity ${classname}){
 		${classname}Dao.save(${classname});
 	}
 	
 	@Override
-	public void update(${className}Entity ${classname}){
+	public Integer update(${className}Entity ${classname}){
 		${classname}Dao.update(${classname});
 	}
 	
 	@Override
-	public void delete(${pk.attrType} ${pk.attrname}){
+	public Integer delete(${pk.attrType} ${pk.attrname}){
 		${classname}Dao.delete(${pk.attrname});
 	}
 	
 	@Override
-	public void deleteBatch(${pk.attrType}[] ${pk.attrname}s){
+	public Integer deleteBatch(${pk.attrType}[] ${pk.attrname}s){
 		${classname}Dao.deleteBatch(${pk.attrname}s);
 	}
 	

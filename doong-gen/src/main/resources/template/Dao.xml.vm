@@ -11,11 +11,11 @@
     </resultMap>
 
     <sql id="Base_Column_List">
+#foreach($column in $columns)
+      $column.columnName #if($velocityCount != $columns.size()),#end
+#end
 
-		#foreach($column in $columns)
-			$column.columnName#if($velocityCount != $columns.size()), #end
-		#end
-    </sql>
+	</sql>
 
 	<select id="selectObjectById" resultType="${package}.entity.${className}Entity">
 		SELECT
@@ -31,11 +31,11 @@
 		FROM ${tableName}
         <where>
             1 = 1
-			#foreach($column in $columns)
-                <if test="${column.attrname} != null and ${column.attrname}.trim() != '')">
-                    and ${column.columnName} = #{${column.attrname}}
-                </if>
-			#end
+#foreach($column in $columns)
+	        <if test="${column.attrname} != null and ${column.attrname}.trim() != ''">
+		       and ${column.columnName} = #{${column.attrname}}
+			</if>
+#end
         </where>
 	</select>
 	
@@ -45,11 +45,11 @@
 		FROM ${tableName}
         <where>
             1 = 1
-			#foreach($column in $columns)
-                <if test="${column.attrname} != null and ${column.attrname}.trim() != '')">
-                    and ${column.columnName} = #{${column.attrname}}
-                </if>
-			#end
+#foreach($column in $columns)
+	        <if test="${column.attrname} != null and ${column.attrname}.trim() != ''">
+		       and ${column.columnName} = #{${column.attrname}}
+		    </if>
+#end
         </where>
 	</select>
 
@@ -60,14 +60,15 @@
 	<delete id="delete">
 		DELETE FROM ${tableName}
         <where>
-			#foreach($column in $columns)
-                <trim  suffixOverrides="AND">
-					<if test="${column.attrname} != null and ${column.attrname}.trim() != '')">
-						${column.columnName} = #{${column.attrname}} AND
-					</if>
-                </trim>
-			#end
+            <trim prefix="WHERE" suffixOverrides="AND">
+#foreach($column in $columns)
+	           <if test="${column.attrname} != null and ${column.attrname}.trim() != ''">
+	              ${column.columnName} = #{${column.attrname}} AND
+	           </if>
+#end
+			</trim>
         </where>
+
 	</delete>
 
     <delete id="deleteBatchByIds">
@@ -99,18 +100,43 @@
 		)
 	</insert>
 
-	//TODO
-	<update id="update" parameterType="${package}.entity.${className}Entity">
+	<update id="updateById" parameterType="${package}.entity.${className}Entity">
 		update ${tableName} 
 		<set>
+			<trim prefix="SET" suffixOverrides=",">
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName)
-			<if test="$column.attrname != null">`$column.columnName` = #{$column.attrname}#if($velocityCount != $columns.size()), #end</if>
+		      <if test="$column.attrname != null and ${column.attrname}.trim() != ''">
+			    `$column.columnName` = #{$column.attrname} ,
+		      </if>
 #end
 #end
+			</trim>
 		</set>
 		where ${pk.columnName} = #{${pk.attrname}}
 	</update>
-	
 
+    <update id="update" parameterType="${package}.entity.${className}Entity">
+        update ${tableName}
+        <set>
+            <trim prefix="SET" suffixOverrides=",">
+#foreach($column in $columns)
+#if($column.columnName != $pk.columnName)
+		    <if test="$column.attrname != null and ${column.attrname}.trim() != ''">
+		      `$column.columnName` = #{$column.attrname} ,
+		    </if>
+#end
+#end
+			</trim>
+        </set>
+		<where>
+            <trim prefix="WHERE" suffixOverrides="AND">
+#foreach($column in $columns)
+		       <if test="${column.attrname} != null and ${column.attrname}.trim() != ''">
+			     ${column.columnName} = #{${column.attrname}} AND
+		       </if>
+#end
+			</trim>
+		</where>
+    </update>
 </mapper>

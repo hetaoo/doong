@@ -21,6 +21,8 @@ public interface BaseDao<S,T> {
 	Integer insertBatch(List<T> list);
 
 	// 更新
+	Integer updateById(Object id);
+
 	Integer update(T t);
 
 	Integer update(Map<String, Object> map);

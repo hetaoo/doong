@@ -1,6 +1,7 @@
 package ${package}.service;
 
 import ${package}.entity.${className}Entity;
+import ${package}.entity.${className}QueryEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -16,15 +17,15 @@ public interface ${className}Service {
 	
 	${className}Entity queryObject(${pk.attrType} ${pk.attrname});
 	
-	List<${className}Entity> queryList(Map<String, Object> map);
+	List<${className}Entity> queryList(${className}QueryEntity queryEntity);
+
+    Integer queryTotal(${className}QueryEntity queryEntity);
 	
-	int queryTotal(Map<String, Object> map);
-	
-	void save(${className}Entity ${classname});
-	
-	void update(${className}Entity ${classname});
-	
-	void delete(${pk.attrType} ${pk.attrname});
-	
-	void deleteBatch(${pk.attrType}[] ${pk.attrname}s);
+	Integer save(${className}Entity ${classname});
+
+    Integer update(${className}Entity ${classname});
+
+    Integer delete(${pk.attrType} ${pk.attrname});
+
+    Integer deleteBatch(${pk.attrType}[] ${pk.attrname}s);
 }

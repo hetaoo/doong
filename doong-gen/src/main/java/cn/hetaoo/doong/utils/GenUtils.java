@@ -22,7 +22,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * 代码生成器   工具类
+ * 代码生成器   工具类 "['sys_menu','sys_role','sys_role_menu']"
  * 
  * @author hetaoo
  */
@@ -31,6 +31,7 @@ public class GenUtils {
 	public static List<String> getTemplates(){
 		List<String> templates = new ArrayList<String>();
 		templates.add("template/Entity.java.vm");
+		templates.add("template/Query.java.vm");
 		templates.add("template/Dao.java.vm");
 		templates.add("template/Dao.xml.vm");
 		templates.add("template/Service.java.vm");
@@ -171,6 +172,10 @@ public class GenUtils {
 		
 		if(template.contains("Entity.java.vm")){
 			return packagePath + "cn/hetaoo/doong/entity" + File.separator + className + "Entity.java";
+		}
+
+		if(template.contains("Query.java.vm")){
+			return packagePath + "cn/hetaoo/doong/entity" + File.separator + className + "QueryEntity.java";
 		}
 		
 		if(template.contains("Dao.java.vm")){
