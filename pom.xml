@@ -203,8 +203,8 @@
             <target>1.8</target>
             <compilerVersion>1.8</compilerVersion>
             <encoding>UTF-8</encoding>
-            <skipTests>true</skipTests>
-            <testFailureIgnore>true</testFailureIgnore>
+            <!--<skipTests>true</skipTests>-->
+            <!--<testFailureIgnore>true</testFailureIgnore>-->
           </configuration>
         </plugin>
 

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hetaoo.doong.web.sys.dao.SysMenuDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.hetaoo.doong.web.sys.entity.SysMenuEntity" id="sysMenuMap">
+        <result property="menuId" column="menu_id"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="url" column="url"/>
+        <result property="perms" column="perms"/>
+        <result property="menuType" column="menu_type"/>
+        <result property="icon" column="icon"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="dbRemark" column="db_remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      menu_id ,      gmt_create ,      gmt_modified ,      parent_id ,      menu_name ,      url ,      perms ,      menu_type ,      icon ,      order_num ,      db_remark 
+	</sql>
+
+	<select id="selectObjectById" resultType="cn.hetaoo.doong.web.sys.entity.SysMenuEntity">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			sys_menu
+		WHERE menu_id = #{value}
+	</select>
+
+	<select id="selectList" resultMap="sysMenuMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM sys_menu
+        <where>
+            1 = 1
+	        <if test="menuId != null and menuId.trim() != ''">
+		       and menu_id = #{menuId}
+			</if>
+	        <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		       and gmt_create = #{gmtCreate}
+			</if>
+	        <if test="gmtModified != null and gmtModified.trim() != ''">
+		       and gmt_modified = #{gmtModified}
+			</if>
+	        <if test="parentId != null and parentId.trim() != ''">
+		       and parent_id = #{parentId}
+			</if>
+	        <if test="menuName != null and menuName.trim() != ''">
+		       and menu_name = #{menuName}
+			</if>
+	        <if test="url != null and url.trim() != ''">
+		       and url = #{url}
+			</if>
+	        <if test="perms != null and perms.trim() != ''">
+		       and perms = #{perms}
+			</if>
+	        <if test="menuType != null and menuType.trim() != ''">
+		       and menu_type = #{menuType}
+			</if>
+	        <if test="icon != null and icon.trim() != ''">
+		       and icon = #{icon}
+			</if>
+	        <if test="orderNum != null and orderNum.trim() != ''">
+		       and order_num = #{orderNum}
+			</if>
+	        <if test="dbRemark != null and dbRemark.trim() != ''">
+		       and db_remark = #{dbRemark}
+			</if>
+        </where>
+	</select>
+	
+ 	<select id="queryTotal" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM sys_menu
+        <where>
+            1 = 1
+	        <if test="menuId != null and menuId.trim() != ''">
+		       and menu_id = #{menuId}
+		    </if>
+	        <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		       and gmt_create = #{gmtCreate}
+		    </if>
+	        <if test="gmtModified != null and gmtModified.trim() != ''">
+		       and gmt_modified = #{gmtModified}
+		    </if>
+	        <if test="parentId != null and parentId.trim() != ''">
+		       and parent_id = #{parentId}
+		    </if>
+	        <if test="menuName != null and menuName.trim() != ''">
+		       and menu_name = #{menuName}
+		    </if>
+	        <if test="url != null and url.trim() != ''">
+		       and url = #{url}
+		    </if>
+	        <if test="perms != null and perms.trim() != ''">
+		       and perms = #{perms}
+		    </if>
+	        <if test="menuType != null and menuType.trim() != ''">
+		       and menu_type = #{menuType}
+		    </if>
+	        <if test="icon != null and icon.trim() != ''">
+		       and icon = #{icon}
+		    </if>
+	        <if test="orderNum != null and orderNum.trim() != ''">
+		       and order_num = #{orderNum}
+		    </if>
+	        <if test="dbRemark != null and dbRemark.trim() != ''">
+		       and db_remark = #{dbRemark}
+		    </if>
+        </where>
+	</select>
+
+	<delete id="deleteById">
+		DELETE FROM sys_menu WHERE id = #{id}
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM sys_menu
+        <where>
+            <trim prefix="WHERE" suffixOverrides="AND">
+	           <if test="menuId != null and menuId.trim() != ''">
+	              menu_id = #{menuId} AND
+	           </if>
+	           <if test="gmtCreate != null and gmtCreate.trim() != ''">
+	              gmt_create = #{gmtCreate} AND
+	           </if>
+	           <if test="gmtModified != null and gmtModified.trim() != ''">
+	              gmt_modified = #{gmtModified} AND
+	           </if>
+	           <if test="parentId != null and parentId.trim() != ''">
+	              parent_id = #{parentId} AND
+	           </if>
+	           <if test="menuName != null and menuName.trim() != ''">
+	              menu_name = #{menuName} AND
+	           </if>
+	           <if test="url != null and url.trim() != ''">
+	              url = #{url} AND
+	           </if>
+	           <if test="perms != null and perms.trim() != ''">
+	              perms = #{perms} AND
+	           </if>
+	           <if test="menuType != null and menuType.trim() != ''">
+	              menu_type = #{menuType} AND
+	           </if>
+	           <if test="icon != null and icon.trim() != ''">
+	              icon = #{icon} AND
+	           </if>
+	           <if test="orderNum != null and orderNum.trim() != ''">
+	              order_num = #{orderNum} AND
+	           </if>
+	           <if test="dbRemark != null and dbRemark.trim() != ''">
+	              db_remark = #{dbRemark} AND
+	           </if>
+			</trim>
+        </where>
+
+	</delete>
+
+    <delete id="deleteBatchByIds">
+        DELETE FROM sys_menu WHERE menu_id IN
+        <foreach item="menuId" collection="array" open="(" separator="," close=")">
+            #{menuId}
+        </foreach>
+    </delete>
+
+
+    <insert id="insert" parameterType="cn.hetaoo.doong.web.sys.entity.SysMenuEntity"  useGeneratedKeys="true" keyProperty="menuId">
+		INSERT INTO sys_menu
+		(
+			`gmt_create`, 
+			`gmt_modified`, 
+			`parent_id`, 
+			`menu_name`, 
+			`url`, 
+			`perms`, 
+			`menu_type`, 
+			`icon`, 
+			`order_num`, 
+			`db_remark`
+		)
+		values
+		(
+			#{gmtCreate}, 
+			#{gmtModified}, 
+			#{parentId}, 
+			#{menuName}, 
+			#{url}, 
+			#{perms}, 
+			#{menuType}, 
+			#{icon}, 
+			#{orderNum}, 
+			#{dbRemark}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="cn.hetaoo.doong.web.sys.entity.SysMenuEntity">
+		update sys_menu 
+		<set>
+			<trim prefix="SET" suffixOverrides=",">
+		      <if test="gmtCreate != null and gmtCreate.trim() != ''">
+			    `gmt_create` = #{gmtCreate} ,
+		      </if>
+		      <if test="gmtModified != null and gmtModified.trim() != ''">
+			    `gmt_modified` = #{gmtModified} ,
+		      </if>
+		      <if test="parentId != null and parentId.trim() != ''">
+			    `parent_id` = #{parentId} ,
+		      </if>
+		      <if test="menuName != null and menuName.trim() != ''">
+			    `menu_name` = #{menuName} ,
+		      </if>
+		      <if test="url != null and url.trim() != ''">
+			    `url` = #{url} ,
+		      </if>
+		      <if test="perms != null and perms.trim() != ''">
+			    `perms` = #{perms} ,
+		      </if>
+		      <if test="menuType != null and menuType.trim() != ''">
+			    `menu_type` = #{menuType} ,
+		      </if>
+		      <if test="icon != null and icon.trim() != ''">
+			    `icon` = #{icon} ,
+		      </if>
+		      <if test="orderNum != null and orderNum.trim() != ''">
+			    `order_num` = #{orderNum} ,
+		      </if>
+		      <if test="dbRemark != null and dbRemark.trim() != ''">
+			    `db_remark` = #{dbRemark} ,
+		      </if>
+			</trim>
+		</set>
+		where menu_id = #{menuId}
+	</update>
+
+    <update id="update" parameterType="cn.hetaoo.doong.web.sys.entity.SysMenuEntity">
+        update sys_menu
+        <set>
+            <trim prefix="SET" suffixOverrides=",">
+		    <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		      `gmt_create` = #{gmtCreate} ,
+		    </if>
+		    <if test="gmtModified != null and gmtModified.trim() != ''">
+		      `gmt_modified` = #{gmtModified} ,
+		    </if>
+		    <if test="parentId != null and parentId.trim() != ''">
+		      `parent_id` = #{parentId} ,
+		    </if>
+		    <if test="menuName != null and menuName.trim() != ''">
+		      `menu_name` = #{menuName} ,
+		    </if>
+		    <if test="url != null and url.trim() != ''">
+		      `url` = #{url} ,
+		    </if>
+		    <if test="perms != null and perms.trim() != ''">
+		      `perms` = #{perms} ,
+		    </if>
+		    <if test="menuType != null and menuType.trim() != ''">
+		      `menu_type` = #{menuType} ,
+		    </if>
+		    <if test="icon != null and icon.trim() != ''">
+		      `icon` = #{icon} ,
+		    </if>
+		    <if test="orderNum != null and orderNum.trim() != ''">
+		      `order_num` = #{orderNum} ,
+		    </if>
+		    <if test="dbRemark != null and dbRemark.trim() != ''">
+		      `db_remark` = #{dbRemark} ,
+		    </if>
+			</trim>
+        </set>
+		<where>
+            <trim prefix="WHERE" suffixOverrides="AND">
+		       <if test="menuId != null and menuId.trim() != ''">
+			     menu_id = #{menuId} AND
+		       </if>
+		       <if test="gmtCreate != null and gmtCreate.trim() != ''">
+			     gmt_create = #{gmtCreate} AND
+		       </if>
+		       <if test="gmtModified != null and gmtModified.trim() != ''">
+			     gmt_modified = #{gmtModified} AND
+		       </if>
+		       <if test="parentId != null and parentId.trim() != ''">
+			     parent_id = #{parentId} AND
+		       </if>
+		       <if test="menuName != null and menuName.trim() != ''">
+			     menu_name = #{menuName} AND
+		       </if>
+		       <if test="url != null and url.trim() != ''">
+			     url = #{url} AND
+		       </if>
+		       <if test="perms != null and perms.trim() != ''">
+			     perms = #{perms} AND
+		       </if>
+		       <if test="menuType != null and menuType.trim() != ''">
+			     menu_type = #{menuType} AND
+		       </if>
+		       <if test="icon != null and icon.trim() != ''">
+			     icon = #{icon} AND
+		       </if>
+		       <if test="orderNum != null and orderNum.trim() != ''">
+			     order_num = #{orderNum} AND
+		       </if>
+		       <if test="dbRemark != null and dbRemark.trim() != ''">
+			     db_remark = #{dbRemark} AND
+		       </if>
+			</trim>
+		</where>
+    </update>
+</mapper>

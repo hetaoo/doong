@@ -1,6 +1,9 @@
 package ${package}.dao;
 
+import cn.hetaoo.doong.common.dao.BaseDao;
 import ${package}.entity.${className}Entity;
+import ${package}.entity.${className}QueryEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * ${comments}
@@ -9,6 +12,7 @@ import ${package}.entity.${className}Entity;
  * @email ${email}
  * @date ${datetime}
  */
-public interface ${className}Dao extends BaseDao<${className}Entity> {
+@Mapper
+public interface ${className}Dao extends BaseDao<${className}Entity, ${className}QueryEntity> {
 	
 }

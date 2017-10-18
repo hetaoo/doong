@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hetaoo.doong.web.sys.dao.SysRoleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.hetaoo.doong.web.sys.entity.SysRoleEntity" id="sysRoleMap">
+        <result property="roleId" column="role_id"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDesc" column="role_desc"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="modifiedUserId" column="modified_user_id"/>
+        <result property="dbRemark" column="db_remark"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      role_id ,      gmt_create ,      gmt_modified ,      role_name ,      role_desc ,      parent_id ,      create_user_id ,      modified_user_id ,      db_remark 
+	</sql>
+
+	<select id="selectObjectById" resultType="cn.hetaoo.doong.web.sys.entity.SysRoleEntity">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			sys_role
+		WHERE role_id = #{value}
+	</select>
+
+	<select id="selectList" resultMap="sysRoleMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM sys_role
+        <where>
+            1 = 1
+	        <if test="roleId != null and roleId.trim() != ''">
+		       and role_id = #{roleId}
+			</if>
+	        <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		       and gmt_create = #{gmtCreate}
+			</if>
+	        <if test="gmtModified != null and gmtModified.trim() != ''">
+		       and gmt_modified = #{gmtModified}
+			</if>
+	        <if test="roleName != null and roleName.trim() != ''">
+		       and role_name = #{roleName}
+			</if>
+	        <if test="roleDesc != null and roleDesc.trim() != ''">
+		       and role_desc = #{roleDesc}
+			</if>
+	        <if test="parentId != null and parentId.trim() != ''">
+		       and parent_id = #{parentId}
+			</if>
+	        <if test="createUserId != null and createUserId.trim() != ''">
+		       and create_user_id = #{createUserId}
+			</if>
+	        <if test="modifiedUserId != null and modifiedUserId.trim() != ''">
+		       and modified_user_id = #{modifiedUserId}
+			</if>
+	        <if test="dbRemark != null and dbRemark.trim() != ''">
+		       and db_remark = #{dbRemark}
+			</if>
+        </where>
+	</select>
+	
+ 	<select id="queryTotal" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM sys_role
+        <where>
+            1 = 1
+	        <if test="roleId != null and roleId.trim() != ''">
+		       and role_id = #{roleId}
+		    </if>
+	        <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		       and gmt_create = #{gmtCreate}
+		    </if>
+	        <if test="gmtModified != null and gmtModified.trim() != ''">
+		       and gmt_modified = #{gmtModified}
+		    </if>
+	        <if test="roleName != null and roleName.trim() != ''">
+		       and role_name = #{roleName}
+		    </if>
+	        <if test="roleDesc != null and roleDesc.trim() != ''">
+		       and role_desc = #{roleDesc}
+		    </if>
+	        <if test="parentId != null and parentId.trim() != ''">
+		       and parent_id = #{parentId}
+		    </if>
+	        <if test="createUserId != null and createUserId.trim() != ''">
+		       and create_user_id = #{createUserId}
+		    </if>
+	        <if test="modifiedUserId != null and modifiedUserId.trim() != ''">
+		       and modified_user_id = #{modifiedUserId}
+		    </if>
+	        <if test="dbRemark != null and dbRemark.trim() != ''">
+		       and db_remark = #{dbRemark}
+		    </if>
+        </where>
+	</select>
+
+	<delete id="deleteById">
+		DELETE FROM sys_role WHERE id = #{id}
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM sys_role
+        <where>
+            <trim prefix="WHERE" suffixOverrides="AND">
+	           <if test="roleId != null and roleId.trim() != ''">
+	              role_id = #{roleId} AND
+	           </if>
+	           <if test="gmtCreate != null and gmtCreate.trim() != ''">
+	              gmt_create = #{gmtCreate} AND
+	           </if>
+	           <if test="gmtModified != null and gmtModified.trim() != ''">
+	              gmt_modified = #{gmtModified} AND
+	           </if>
+	           <if test="roleName != null and roleName.trim() != ''">
+	              role_name = #{roleName} AND
+	           </if>
+	           <if test="roleDesc != null and roleDesc.trim() != ''">
+	              role_desc = #{roleDesc} AND
+	           </if>
+	           <if test="parentId != null and parentId.trim() != ''">
+	              parent_id = #{parentId} AND
+	           </if>
+	           <if test="createUserId != null and createUserId.trim() != ''">
+	              create_user_id = #{createUserId} AND
+	           </if>
+	           <if test="modifiedUserId != null and modifiedUserId.trim() != ''">
+	              modified_user_id = #{modifiedUserId} AND
+	           </if>
+	           <if test="dbRemark != null and dbRemark.trim() != ''">
+	              db_remark = #{dbRemark} AND
+	           </if>
+			</trim>
+        </where>
+
+	</delete>
+
+    <delete id="deleteBatchByIds">
+        DELETE FROM sys_role WHERE role_id IN
+        <foreach item="roleId" collection="array" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </delete>
+
+
+    <insert id="insert" parameterType="cn.hetaoo.doong.web.sys.entity.SysRoleEntity"  useGeneratedKeys="true" keyProperty="roleId">
+		INSERT INTO sys_role
+		(
+			`gmt_create`, 
+			`gmt_modified`, 
+			`role_name`, 
+			`role_desc`, 
+			`parent_id`, 
+			`create_user_id`, 
+			`modified_user_id`, 
+			`db_remark`
+		)
+		values
+		(
+			#{gmtCreate}, 
+			#{gmtModified}, 
+			#{roleName}, 
+			#{roleDesc}, 
+			#{parentId}, 
+			#{createUserId}, 
+			#{modifiedUserId}, 
+			#{dbRemark}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="cn.hetaoo.doong.web.sys.entity.SysRoleEntity">
+		update sys_role 
+		<set>
+			<trim prefix="SET" suffixOverrides=",">
+		      <if test="gmtCreate != null and gmtCreate.trim() != ''">
+			    `gmt_create` = #{gmtCreate} ,
+		      </if>
+		      <if test="gmtModified != null and gmtModified.trim() != ''">
+			    `gmt_modified` = #{gmtModified} ,
+		      </if>
+		      <if test="roleName != null and roleName.trim() != ''">
+			    `role_name` = #{roleName} ,
+		      </if>
+		      <if test="roleDesc != null and roleDesc.trim() != ''">
+			    `role_desc` = #{roleDesc} ,
+		      </if>
+		      <if test="parentId != null and parentId.trim() != ''">
+			    `parent_id` = #{parentId} ,
+		      </if>
+		      <if test="createUserId != null and createUserId.trim() != ''">
+			    `create_user_id` = #{createUserId} ,
+		      </if>
+		      <if test="modifiedUserId != null and modifiedUserId.trim() != ''">
+			    `modified_user_id` = #{modifiedUserId} ,
+		      </if>
+		      <if test="dbRemark != null and dbRemark.trim() != ''">
+			    `db_remark` = #{dbRemark} ,
+		      </if>
+			</trim>
+		</set>
+		where role_id = #{roleId}
+	</update>
+
+    <update id="update" parameterType="cn.hetaoo.doong.web.sys.entity.SysRoleEntity">
+        update sys_role
+        <set>
+            <trim prefix="SET" suffixOverrides=",">
+		    <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		      `gmt_create` = #{gmtCreate} ,
+		    </if>
+		    <if test="gmtModified != null and gmtModified.trim() != ''">
+		      `gmt_modified` = #{gmtModified} ,
+		    </if>
+		    <if test="roleName != null and roleName.trim() != ''">
+		      `role_name` = #{roleName} ,
+		    </if>
+		    <if test="roleDesc != null and roleDesc.trim() != ''">
+		      `role_desc` = #{roleDesc} ,
+		    </if>
+		    <if test="parentId != null and parentId.trim() != ''">
+		      `parent_id` = #{parentId} ,
+		    </if>
+		    <if test="createUserId != null and createUserId.trim() != ''">
+		      `create_user_id` = #{createUserId} ,
+		    </if>
+		    <if test="modifiedUserId != null and modifiedUserId.trim() != ''">
+		      `modified_user_id` = #{modifiedUserId} ,
+		    </if>
+		    <if test="dbRemark != null and dbRemark.trim() != ''">
+		      `db_remark` = #{dbRemark} ,
+		    </if>
+			</trim>
+        </set>
+		<where>
+            <trim prefix="WHERE" suffixOverrides="AND">
+		       <if test="roleId != null and roleId.trim() != ''">
+			     role_id = #{roleId} AND
+		       </if>
+		       <if test="gmtCreate != null and gmtCreate.trim() != ''">
+			     gmt_create = #{gmtCreate} AND
+		       </if>
+		       <if test="gmtModified != null and gmtModified.trim() != ''">
+			     gmt_modified = #{gmtModified} AND
+		       </if>
+		       <if test="roleName != null and roleName.trim() != ''">
+			     role_name = #{roleName} AND
+		       </if>
+		       <if test="roleDesc != null and roleDesc.trim() != ''">
+			     role_desc = #{roleDesc} AND
+		       </if>
+		       <if test="parentId != null and parentId.trim() != ''">
+			     parent_id = #{parentId} AND
+		       </if>
+		       <if test="createUserId != null and createUserId.trim() != ''">
+			     create_user_id = #{createUserId} AND
+		       </if>
+		       <if test="modifiedUserId != null and modifiedUserId.trim() != ''">
+			     modified_user_id = #{modifiedUserId} AND
+		       </if>
+		       <if test="dbRemark != null and dbRemark.trim() != ''">
+			     db_remark = #{dbRemark} AND
+		       </if>
+			</trim>
+		</where>
+    </update>
+</mapper>

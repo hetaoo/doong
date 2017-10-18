@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hetaoo.doong.web.sys.dao.SysRoleMenuDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="cn.hetaoo.doong.web.sys.entity.SysRoleMenuEntity" id="sysRoleMenuMap">
+        <result property="id" column="id"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="roleId" column="role_id"/>
+        <result property="menuId" column="menu_id"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      id ,      gmt_create ,      gmt_modified ,      role_id ,      menu_id 
+	</sql>
+
+	<select id="selectObjectById" resultType="cn.hetaoo.doong.web.sys.entity.SysRoleMenuEntity">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			sys_role_menu
+		WHERE id = #{value}
+	</select>
+
+	<select id="selectList" resultMap="sysRoleMenuMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM sys_role_menu
+        <where>
+            1 = 1
+	        <if test="id != null and id.trim() != ''">
+		       and id = #{id}
+			</if>
+	        <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		       and gmt_create = #{gmtCreate}
+			</if>
+	        <if test="gmtModified != null and gmtModified.trim() != ''">
+		       and gmt_modified = #{gmtModified}
+			</if>
+	        <if test="roleId != null and roleId.trim() != ''">
+		       and role_id = #{roleId}
+			</if>
+	        <if test="menuId != null and menuId.trim() != ''">
+		       and menu_id = #{menuId}
+			</if>
+        </where>
+	</select>
+	
+ 	<select id="queryTotal" resultType="java.lang.Integer">
+		SELECT
+			count(1)
+		FROM sys_role_menu
+        <where>
+            1 = 1
+	        <if test="id != null and id.trim() != ''">
+		       and id = #{id}
+		    </if>
+	        <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		       and gmt_create = #{gmtCreate}
+		    </if>
+	        <if test="gmtModified != null and gmtModified.trim() != ''">
+		       and gmt_modified = #{gmtModified}
+		    </if>
+	        <if test="roleId != null and roleId.trim() != ''">
+		       and role_id = #{roleId}
+		    </if>
+	        <if test="menuId != null and menuId.trim() != ''">
+		       and menu_id = #{menuId}
+		    </if>
+        </where>
+	</select>
+
+	<delete id="deleteById">
+		DELETE FROM sys_role_menu WHERE id = #{id}
+	</delete>
+
+	<delete id="delete">
+		DELETE FROM sys_role_menu
+        <where>
+            <trim prefix="WHERE" suffixOverrides="AND">
+	           <if test="id != null and id.trim() != ''">
+	              id = #{id} AND
+	           </if>
+	           <if test="gmtCreate != null and gmtCreate.trim() != ''">
+	              gmt_create = #{gmtCreate} AND
+	           </if>
+	           <if test="gmtModified != null and gmtModified.trim() != ''">
+	              gmt_modified = #{gmtModified} AND
+	           </if>
+	           <if test="roleId != null and roleId.trim() != ''">
+	              role_id = #{roleId} AND
+	           </if>
+	           <if test="menuId != null and menuId.trim() != ''">
+	              menu_id = #{menuId} AND
+	           </if>
+			</trim>
+        </where>
+
+	</delete>
+
+    <delete id="deleteBatchByIds">
+        DELETE FROM sys_role_menu WHERE id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <insert id="insert" parameterType="cn.hetaoo.doong.web.sys.entity.SysRoleMenuEntity"  useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_role_menu
+		(
+			`gmt_create`, 
+			`gmt_modified`, 
+			`role_id`, 
+			`menu_id`
+		)
+		values
+		(
+			#{gmtCreate}, 
+			#{gmtModified}, 
+			#{roleId}, 
+			#{menuId}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="cn.hetaoo.doong.web.sys.entity.SysRoleMenuEntity">
+		update sys_role_menu 
+		<set>
+			<trim prefix="SET" suffixOverrides=",">
+		      <if test="gmtCreate != null and gmtCreate.trim() != ''">
+			    `gmt_create` = #{gmtCreate} ,
+		      </if>
+		      <if test="gmtModified != null and gmtModified.trim() != ''">
+			    `gmt_modified` = #{gmtModified} ,
+		      </if>
+		      <if test="roleId != null and roleId.trim() != ''">
+			    `role_id` = #{roleId} ,
+		      </if>
+		      <if test="menuId != null and menuId.trim() != ''">
+			    `menu_id` = #{menuId} ,
+		      </if>
+			</trim>
+		</set>
+		where id = #{id}
+	</update>
+
+    <update id="update" parameterType="cn.hetaoo.doong.web.sys.entity.SysRoleMenuEntity">
+        update sys_role_menu
+        <set>
+            <trim prefix="SET" suffixOverrides=",">
+		    <if test="gmtCreate != null and gmtCreate.trim() != ''">
+		      `gmt_create` = #{gmtCreate} ,
+		    </if>
+		    <if test="gmtModified != null and gmtModified.trim() != ''">
+		      `gmt_modified` = #{gmtModified} ,
+		    </if>
+		    <if test="roleId != null and roleId.trim() != ''">
+		      `role_id` = #{roleId} ,
+		    </if>
+		    <if test="menuId != null and menuId.trim() != ''">
+		      `menu_id` = #{menuId} ,
+		    </if>
+			</trim>
+        </set>
+		<where>
+            <trim prefix="WHERE" suffixOverrides="AND">
+		       <if test="id != null and id.trim() != ''">
+			     id = #{id} AND
+		       </if>
+		       <if test="gmtCreate != null and gmtCreate.trim() != ''">
+			     gmt_create = #{gmtCreate} AND
+		       </if>
+		       <if test="gmtModified != null and gmtModified.trim() != ''">
+			     gmt_modified = #{gmtModified} AND
+		       </if>
+		       <if test="roleId != null and roleId.trim() != ''">
+			     role_id = #{roleId} AND
+		       </if>
+		       <if test="menuId != null and menuId.trim() != ''">
+			     menu_id = #{menuId} AND
+		       </if>
+			</trim>
+		</where>
+    </update>
+</mapper>

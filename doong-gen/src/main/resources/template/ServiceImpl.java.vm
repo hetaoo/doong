@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 import ${package}.dao.${className}Dao;
 import ${package}.entity.${className}Entity;
+import ${package}.entity.${className}QueryEntity;
 import ${package}.service.${className}Service;
 
 
@@ -19,37 +19,37 @@ public class ${className}ServiceImpl implements ${className}Service {
 	
 	@Override
 	public ${className}Entity queryObject(${pk.attrType} ${pk.attrname}){
-		return ${classname}Dao.queryObject(${pk.attrname});
+		return ${classname}Dao.selectObjectById(${pk.attrname});
 	}
 	
 	@Override
 	public List<${className}Entity> queryList(${className}QueryEntity queryEntity){
-		return ${classname}Dao.queryList(queryEntity);
+		return ${classname}Dao.selectList(queryEntity);
 	}
 	
 	@Override
 	public Integer queryTotal(${className}QueryEntity queryEntity){
-		return ${classname}Dao.queryTotal(queryEntity);
+		return ${classname}Dao.selectTotal(queryEntity);
 	}
 	
 	@Override
 	public Integer save(${className}Entity ${classname}){
-		${classname}Dao.save(${classname});
+		return ${classname}Dao.insert(${classname});
 	}
 	
 	@Override
 	public Integer update(${className}Entity ${classname}){
-		${classname}Dao.update(${classname});
+		return ${classname}Dao.update(${classname});
 	}
 	
 	@Override
-	public Integer delete(${pk.attrType} ${pk.attrname}){
-		${classname}Dao.delete(${pk.attrname});
+	public Integer deleteById(${pk.attrType} ${pk.attrname}){
+		return ${classname}Dao.deleteById(${pk.attrname});
 	}
 	
 	@Override
-	public Integer deleteBatch(${pk.attrType}[] ${pk.attrname}s){
-		${classname}Dao.deleteBatch(${pk.attrname}s);
+	public Integer deleteBatch(List<${pk.attrType}> ${pk.attrname}s){
+		return ${classname}Dao.deleteBatchByIds(${pk.attrname}s.toArray());
 	}
 	
 }

@@ -4,7 +4,6 @@ import ${package}.entity.${className}Entity;
 import ${package}.entity.${className}QueryEntity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * ${comments}
@@ -25,7 +24,7 @@ public interface ${className}Service {
 
     Integer update(${className}Entity ${classname});
 
-    Integer delete(${pk.attrType} ${pk.attrname});
+    Integer deleteById(${pk.attrType} ${pk.attrname});
 
-    Integer deleteBatch(${pk.attrType}[] ${pk.attrname}s);
+    Integer deleteBatch(List<${pk.attrType}> ${pk.attrname}s);
 }
